@@ -1,11 +1,170 @@
-body{
+* {
+    margin: 0;
     box-sizing: border-box;
-    font: Roboto, normal;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    --colorHint: #7E7E7E;
+    --colorDefault: #000;
+    --colorBorder: #D9D9D9;
+    --shadow: rgba(182, 182, 182, 0.25);
+    --accent: #FF5555;
+    --background: #ffffff;
+    --backgroundMain: #f9f9f9;
+    --starAccent: #FF9432;
+    --linkHover: #208FBF;
+    color: var(--colorDefault);
+    
+}
+main {
+    padding: 1em 0;
 }
 header > h2 {
     font-size: 24px;
     font-weight: bold;
+    text-align: center;
+    padding: 0.5em;
+}
+header, main {
+    background-color: var(--backgroundMain);   
 }
 .reposListComponent {
+    width: 397px;
+    margin: 0 auto;
+    display: grid; 
+    grid-auto-columns: 1fr; 
+    grid-template-rows: 50px 1fr; 
+    gap: 20px 0px; 
+    justify-items: center;
+}
+
+.searchBar {
+    width: 357px;
+    height: 100%;
+    
+}
+.searchForm {
+    position: relative;    
+    height: inherit;
+}
+input[type="search"], .gitRepoTile {
+    background-color: var(--background);    
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--colorBorder);    
+    border-radius: 6px;
+    
+}
+input[type="search"] {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    padding: 1em;
+    width: 295px;
+    height: 50px;
+    outline: none;    
+}
+input[type="search"]::placeholder {
+    content: "Введите название организации";
+    color: var(--colorHint);
+}
+
+input[type="search"]:focus,  input[type="search"]:active{
+    border-color: var(--accent);
+}
+input[type="search"]:disabled {
+    border-color: var(--colorHint);
+    color: var(--colorHint); 
+}
+.searchButton {
+    position: absolute; 
+    top: 0;
+    right: 0px;
+    width: 50px;
+    height: inherit;
+    background-color: var(--accent);
+    border-color: var(--accent);
+    border-style: solid;
+    border-width: 0;
+    border-radius: 6px; 
+}
+.searchButton img {
+    vertical-align: middle;
+}
+.searchButton:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+.searchButton:disabled {
+    background-color: var(--colorBorder);
+}
+.reposList {
+    width: 357px;
     display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr); 
+    gap: 16px 0px; 
+}
+
+.gitRepoTile {
+    height: 104px;
+}
+.gitRepoTile:hover {    
+    cursor: pointer;
+    box-shadow: 0px 2px 6px var(--shadow);
+}
+.avatar {
+    width: 80px;
+    align-self: stretch;
+    margin-right: 12px;
+    background-color: var(--accent);
+    border-radius: 40px;    
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 78px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: var(--background);
+}
+.repoName {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 19px;
+}
+.orgLink, .info p {
+    color: var(--colorHint);    
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+.orgLink:hover {
+    color: var(--linkHover);
+}
+.gitRepoTileContainer {
+    
+    height: 100%;
+    padding: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.content {    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+.content a {
+    margin-bottom: 4px;
+}
+.info {    
+    display: flex;
+    justify-content: flex-start;    
+}
+.info img {
+    align-self: center;
+}
+.info > img+p {
+    margin: 0 20px 0 2px;
 }
