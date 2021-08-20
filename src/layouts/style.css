@@ -1,0 +1,11 @@
+body{
+    box-sizing: border-box;
+    font: Roboto, normal;
+}
+header > h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+.reposListComponent {
+    display: grid;
+}
