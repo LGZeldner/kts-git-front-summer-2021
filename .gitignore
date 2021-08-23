@@ -10,7 +10,10 @@
 
 # production
 /build
-
+ src/root/root.js
+ src/shared/store/ApiStore/ApiStore.js
+ src/shared/store/ApiStore/types.js
+ src/store/GitHubStore/GitHubStore.js
 # misc
 .DS_Store
 .env.local
