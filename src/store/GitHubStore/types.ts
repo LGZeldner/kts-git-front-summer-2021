@@ -1,5 +1,3 @@
-import { Http2SecureServer } from "http2";
-import { type } from "os";
 
 /** Интерфейс класса для работы с GitHub API
  * названия getSomeData и postSomeData
@@ -19,16 +17,17 @@ export type GetOrganizationReposListParams = {
 
 }
 export type RepoItem = {
-    name: String;
-    description: String;
+    data: String;
+    
 }
-export type ApiResp<RepoItem> = {
-    data: RepoItem;
-}
-export interface IGitHubStore {
-    getOrganizationReposList(params: GetOrganizationReposListParams): any/*<ApiResp<RepoItem[]>>*/;
-    // getSomeData(params: GetSomeDataParams): Promise<ApiResp<GetSomeDataResp>>;
+export type ApiResp<DataT> = {    
+    data: DataT;    
+};
 
+export interface IGitHubStore {
+    getOrganizationReposList(params: GetOrganizationReposListParams): Promise<ApiResp<RepoItem[]>>;
+    
     // Необязательный пункт, т.к. требует авторизации. Понадобится в будущем
+    // TODO метод POST
     // postSomeData(params: PostSomeDataParams): Promise<ApiResp<PostSomeDataResp>>;
 }

@@ -1,33 +1,44 @@
 // Перечисление методов HTTP-запроса
-enum HTTPMethod {
-    // TODO: заполнить
-    GET = 'GET'
-    // TODO: добавить post = 'POST'
-
+enum HTTPMethod {    
+    Get = 'GET',    
+    Post = 'POST'
 }
 
 // Параметры запроса
 export type RequestParams<ReqT> = {
-    method?: string; // Метод запроса, GET или POST
+    method: HTTPMethod[0] | HTTPMethod[1]; // Метод запроса, GET или POST
     endpoint: string; // API-endpoint, на который делается запрос
-    headers?: Record<string, string>; // Объект с передаваемыми HTTP-заголовками
+    headers: Record<string, string>; // Объект с передаваемыми HTTP-заголовками
 
     /**
      * Объект с данными запроса.
      * - Для GET-запроса данные превращаются в query-строку и добавляются в endpoint
      * - Для POST-запроса данные преобразуются к формату JSON и добавляются в тело запроса (необязательное требование)
      */
-    data?: ReqT;
+    data: ReqT;
 }
 
 // Перечисление статусов ответа
-enum StatusHTTP {
-    // TODO: заполнить
+enum StatusHTTP {    
     OK = 200,
-    Created = 201,
+    Created,
+    Accepted,
+    No_Content = 204,
+    Moved_Permanently = 301,
+    Found,
+    See_Other,
+    Not_Modified,
+    Temporary_Redirect = 307,
     Bad_Request = 400,
-    Not_Found = 404,
-    Internal_Server_Error = 500
+    Unauthorized,
+    Forbidden = 403, 
+    Not_Found,
+    Method_Not_Allowed,
+    Not_Acceptable,
+    Precondition_Failed = 412,
+    Unsupported_Media_Type = 415,  
+    Internal_Server_Error = 500,
+    Not_Implemented
 }
 
 // Ответ API

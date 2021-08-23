@@ -1,5 +1,4 @@
 // Здесь необходимо продемонстрировать создание и использование GitHubStore
-// node_modules\qs
 
 import GitHubStore from '../store/GitHubStore/GitHubStore';
 
@@ -18,5 +17,3 @@ gitHubStore.getOrganizationReposList({
   console.log(result); // в консоли появится список репозиториев в ktsstudio
 })
 
-// В ДЗ 1 Не требуется визуально в разметке отображать результат запроса к сети. Достаточно вывести в console.log
-//export {};
