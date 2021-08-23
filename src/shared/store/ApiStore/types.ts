@@ -1,14 +1,14 @@
 // Перечисление методов HTTP-запроса
-export enum HTTPMethod {
+enum HTTPMethod {
     // TODO: заполнить
-    get = 'GET'
+    GET = 'GET'
     // TODO: добавить post = 'POST'
 
 }
 
 // Параметры запроса
 export type RequestParams<ReqT> = {
-    method?: HTTPMethod; // Метод запроса, GET или POST
+    method?: string; // Метод запроса, GET или POST
     endpoint: string; // API-endpoint, на который делается запрос
     headers?: Record<string, string>; // Объект с передаваемыми HTTP-заголовками
 
@@ -21,12 +21,13 @@ export type RequestParams<ReqT> = {
 }
 
 // Перечисление статусов ответа
-export enum StatusHTTP {
+enum StatusHTTP {
     // TODO: заполнить
-    ok = 200,
-    badRequest = 400,
-    notFound = 404,
-    internalServerError = 500
+    OK = 200,
+    Created = 201,
+    Bad_Request = 400,
+    Not_Found = 404,
+    Internal_Server_Error = 500
 }
 
 // Ответ API

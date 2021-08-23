@@ -8,7 +8,14 @@ import { type } from "os";
  * Выберите любой запрос из публичного API GitHub.
  */
 export type GetOrganizationReposListParams = {
-    organizationName: string; // Имя организации    
+    organizationName: string; // Имя организации
+    data?: {    
+        type?: string; // Типы репозиториев
+        sort?: string; // Сортировка по
+        direction?: string; // Направление сортировки
+        per_page?: string; // Результатов на странице
+        page?: string; // номер страницы
+    }
 
 }
 export type RepoItem = {
