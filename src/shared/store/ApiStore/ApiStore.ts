@@ -7,12 +7,15 @@ const qs = require('qs');
 export default class ApiStore implements IApiStore {
     // TODO: реализовать
     readonly baseUrl: String; //  = 'https://api.github.com/';
-    
+
+    constructor(baseUrl: String){
+        this.baseUrl = baseUrl;
+    }
+
     async request<SuccessT, ErrorT = any, ReqT = {}>(params: RequestParams<ReqT>): Promise<ApiResponse<SuccessT, ErrorT>> {
         const query = qs.stringify(params.data);
         const reqUrl = `${this.baseUrl}${params.endpoint}?${query}`;
-        console.log(reqUrl);
-        
+                
         try {
             const fetchResponse = await fetch(reqUrl, {method: params.method});
             return {
@@ -26,10 +29,6 @@ export default class ApiStore implements IApiStore {
                 data: error,
                 status: error.status
             }
-        }       
-               
-    }
-    constructor(baseUrl: String){
-        this.baseUrl = baseUrl;
-    }
+        }              
+    }    
 }
