@@ -27,9 +27,11 @@ export type RepoItem = {
     id: string;
     name: string;
     url: string;
-    private: boolean;
-    stargazers_count: number;
     owner: GitHubRepoOwner;
+    private: boolean;
+    updated: Date;
+    stargazers_count: number;
+    
 };
 export interface IGitHubStore {
     getOrganizationReposList(params: GetOrganizationReposListParams): Promise<ApiResponse<RepoItem[], any>>;
