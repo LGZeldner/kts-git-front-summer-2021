@@ -1,34 +1,60 @@
-import {IApiStore} from "./types";
-import {RequestParams} from "./types";
-import {ApiResponse} from "./types";
-import fetch from 'node-fetch';
+import { IApiStore, RequestParams, ApiResponse, HTTPMethod } from "./types";
+import fetch, { RequestInit } from 'node-fetch';
 const qs = require('qs');
 
 export default class ApiStore implements IApiStore {
-    // TODO: реализовать
     readonly baseUrl: String; //  = 'https://api.github.com/';
 
-    constructor(baseUrl: String){
+    constructor(baseUrl: String) {
         this.baseUrl = baseUrl;
     }
 
-    async request<SuccessT, ErrorT = any, ReqT = {}>(params: RequestParams<ReqT>): Promise<ApiResponse<SuccessT, ErrorT>> {
-        const query = qs.stringify(params.data);
-        const reqUrl = `${this.baseUrl}${params.endpoint}?${query}`;
-                
+    private getRequestData<ReqT>(
+        params: RequestParams<ReqT>
+    ): [string, RequestInit] {
+        let url: string = `${this.baseUrl}${params.endpoint}`;
+        const req: RequestInit = {
+            method: params.method,
+            headers: { ...params.headers }
+        };
+
+        if (params.method === HTTPMethod.GET) {
+            url = `${url}?${qs.stringify(params.data)}`;
+        } else {
+            req.body = JSON.stringify(params.data);
+            req.headers = {
+                ...req.headers,
+                "Content-Type": "application/json;charset=UTF-8"
+            };
+        }
+        return [url, req];
+    }
+
+    async request<SuccessT, ErrorT = any, ReqT = {}>(
+        params: RequestParams<ReqT>
+    ): Promise<ApiResponse<SuccessT, ErrorT>> {
         try {
-            const fetchResponse = await fetch(reqUrl, {method: params.method});
-            return {
-                success: true,
-                data: await fetchResponse.json(),
-                status: fetchResponse.status
+            const [endpoint, req] = this.getRequestData(params);
+            const response = await fetch(endpoint, req);
+
+            if (response.ok) {
+                return {
+                    success: true,
+                    data: await response.json(),
+                    status: response.status
+                };
+            } else {
+                return {
+                    success: false,
+                    data: await response.json(),
+                    status: response.status
+                };
             }
         } catch (error) {
             return {
-                success: true,
-                data: error,
-                status: error.status
-            }
-        }              
-    }    
+                success: false,
+                data: error
+            };
+        }
+    }
 }

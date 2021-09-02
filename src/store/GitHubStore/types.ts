@@ -1,4 +1,4 @@
-
+import { ApiResponse } from "src/shared/store/ApiStore/types";
 /** Интерфейс класса для работы с GitHub API
  * названия getSomeData и postSomeData
  * (а также типов GetSomeDataParams и PostSomeDataPrams)
@@ -7,7 +7,7 @@
  */
 export type GetOrganizationReposListParams = {
     organizationName: string; // Имя организации
-    data?: {    
+    data?: {
         type?: string; // Типы репозиториев
         sort?: string; // Сортировка по
         direction?: string; // Направление сортировки
@@ -16,17 +16,24 @@ export type GetOrganizationReposListParams = {
     }
 
 }
-export type RepoItem = {
-    data: String;
-    
-}
-export type ApiResp<DataT> = {    
-    data: DataT;    
+export type GitHubRepoOwner = {
+    id: number;
+    login: string;
+    avatar_url: string;
+    url: string;
 };
 
+export type RepoItem = {
+    id: string;
+    name: string;
+    url: string;
+    private: boolean;
+    stargazers_count: number;
+    owner: GitHubRepoOwner;
+};
 export interface IGitHubStore {
-    getOrganizationReposList(params: GetOrganizationReposListParams): Promise<ApiResp<RepoItem[]>>;
-    
+    getOrganizationReposList(params: GetOrganizationReposListParams): Promise<ApiResponse<RepoItem[], any>>;
+
     // Необязательный пункт, т.к. требует авторизации. Понадобится в будущем
     // TODO метод POST
     // postSomeData(params: PostSomeDataParams): Promise<ApiResp<PostSomeDataResp>>;
