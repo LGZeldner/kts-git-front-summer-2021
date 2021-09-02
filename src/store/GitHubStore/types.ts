@@ -1,4 +1,4 @@
-import { ApiResponse } from "src/shared/store/ApiStore/types";
+import { ApiResponse } from "../../shared/store/ApiStore/types";
 /** Интерфейс класса для работы с GitHub API
  * названия getSomeData и postSomeData
  * (а также типов GetSomeDataParams и PostSomeDataPrams)

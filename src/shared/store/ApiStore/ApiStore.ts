@@ -51,9 +51,10 @@ export default class ApiStore implements IApiStore {
                 };
             }
         } catch (error) {
+
             return {
-                success: false,
-                data: error
+                success: false
+                // data: error
             };
         }
     }

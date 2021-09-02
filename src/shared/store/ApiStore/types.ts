@@ -50,7 +50,7 @@ export type ApiResponse<SuccessT, ErrorT> =
     }
     | {
         success: false;
-        data: ErrorT;
+        data?: ErrorT;
         status?: StatusHTTP;
     };
 
