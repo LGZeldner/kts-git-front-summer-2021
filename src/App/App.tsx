@@ -2,8 +2,9 @@
 import React from 'react';
 
 import Avatar from '@components/Avatar';
-import PageTitle from '@components/PageTitle'; 
+import PageTitle from '@components/PageTitle';
 import RepoTile from '@components/RepoTile';
+import RepoSearchPage from '@pages/RepoSearchPage';
 
 import avatarImg from './avatar.png';
 import logo from './logo.svg';
@@ -23,6 +24,7 @@ const repoEx = {
   updated: new Date("2019-01-16"),
   stargazers_count: 123
 }
+const repoItemsEx = [repoEx, repoEx, repoEx, repoEx, repoEx];
 
 function App() {
   return (
@@ -30,8 +32,7 @@ function App() {
       <header className="light-gray-background">
         <PageTitle title="Cписок репозиториев"></PageTitle>
       </header>
-      <Avatar src={avatarImg} alt="" letter="F" />
-      <RepoTile repo={repoEx} />
+      <RepoSearchPage repoItems={repoItemsEx}></RepoSearchPage>
     </div>
   );
 }
