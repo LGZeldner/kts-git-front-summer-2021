@@ -1,0 +1,8 @@
+.loader {
+    height: 80px;
+    font-style: normal;
+    font-weight: 700;
+    vertical-align: middle;
+    text-align: center;
+    border-bottom: var(--borderRadus) solid var(--colorHint);
+}
