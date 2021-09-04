@@ -12,7 +12,6 @@ import "./RepoSearchPage.css";
 
 const gitHubStore = new GitHubStore();
 
-const EXAMPLE_ORGANIZATION = 'ktsstudio';
 const QUERY = {
   per_page: '5',
   page: '1'
@@ -25,24 +24,28 @@ const RepoSearchPage = () => {
     setInputValue(value);
   };
 
+  const [disabled, setDisabled] = React.useState(false);
   const [reposList, setReposList] = React.useState<RepoItem[]>([]);
   React.useEffect(() => {
-    gitHubStore
-      .getOrganizationReposList({
-        organizationName: EXAMPLE_ORGANIZATION,
-        data: QUERY
-      })
-      .then((result) => {
-        setReposList(result.data);
-        setIsLoading(false);
-      });
-  }, []);
+    // если введено значение и нажата кнопка - делаем запрос
+    if (inputValue !== "" && disabled) {
+      gitHubStore
+        .getOrganizationReposList({
+          organizationName: inputValue,
+          data: QUERY
+        })
+        .then((result) => {
+          setReposList(result.data);
+          setIsLoading(false);
+        });
+    }
+  }, [inputValue, disabled]);
 
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  const [disabled, setDisabled] = React.useState(false);
   const handleSearchButton = (inputValue: string) => {
     setDisabled(true);
+    setIsLoading(true);
   };
   const handleRepoTile = (): void => {
     // TODO: открытие боковой панели RepoBranchesDrawer
@@ -59,8 +62,8 @@ const RepoSearchPage = () => {
             </Button>
           </form>
         </div>
-        <div className="repos-list">
-          {isLoading && <Loader name="Загружаем список..." />}
+        {isLoading && <Loader name="Загружаем список..." />}
+        {(disabled && !isLoading) && <div className="repos-list">
           {reposList.map((repo) => (
             <React.Fragment key={repo.id}>
               <RepoTile
@@ -70,6 +73,7 @@ const RepoSearchPage = () => {
             </React.Fragment>
           ))}
         </div>
+        }
       </div>
     </main>
   );
