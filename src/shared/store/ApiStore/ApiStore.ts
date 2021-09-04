@@ -1,5 +1,7 @@
-import { IApiStore, RequestParams, ApiResponse, HTTPMethod } from "./types";
 import fetch, { RequestInit } from 'node-fetch';
+
+import { IApiStore, RequestParams, ApiResponse, HTTPMethod } from "./types";
+
 const qs = require('qs');
 
 export default class ApiStore implements IApiStore {
@@ -51,10 +53,8 @@ export default class ApiStore implements IApiStore {
                 };
             }
         } catch (error) {
-
             return {
                 success: false
-                // data: error
             };
         }
     }
