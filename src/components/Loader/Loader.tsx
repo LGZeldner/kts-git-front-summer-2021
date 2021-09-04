@@ -6,6 +6,6 @@ export type loaderProps = {
 };
 
 const Loader: React.FC<loaderProps> = ({ name }) =>
-  <div className="loader">{name}</div>
+  <div className="loader">{name}</div>;
 
 export default Loader;

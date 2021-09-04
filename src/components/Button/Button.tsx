@@ -9,9 +9,13 @@ export type ButtonProps = PropsWithChildren<{
 const Button: React.FC<ButtonProps> = ({
   onClick,
   children,
-  disabled = false,
-}) => <button onClick={onClick} disabled={disabled} className=".search-bar__button">
-        {children}
-      </button>;
+  disabled,
+}) => disabled
+    ? <button disabled={disabled} className="search-bar__button">
+      {children}
+    </button>
+    : <button onClick={onClick} disabled={disabled} className="search-bar__button">
+      {children}
+    </button>;
 
 export default Button;

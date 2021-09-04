@@ -1,4 +1,4 @@
-.git-repo-tile__avatar {
+.git-repo-tile__avatar-container {
     width: 80px;
     height: 80px;
     background-color: var(--accent);
@@ -10,4 +10,9 @@
     text-align: center;
     color: var(--background);
     margin-right: 12px;
+}
+
+.git-repo-tile__avatar-img {
+    width: 80px;
+    height: 80px;    
 }
