@@ -21,7 +21,7 @@ const RepoTile: React.FC<RepoTileProps> = ({ onClick, item: repo }) => (
                 <div className="git-repo-tile__info">
                     <StarIcon></StarIcon>
                     <p className="git-repo-tile__stars git-repo-tile__info-text">{repo.stargazers_count}</p>
-                    <p className="git-repo-tile__updated git-repo-tile__info-text">Updated {Moment(repo.updated).format("D MMM")}</p>
+                    <p className="git-repo-tile__updated git-repo-tile__info-text">Updated {Moment(repo.updated_at).format("D MMM")}</p>
                 </div>
             </div>
         </div>
