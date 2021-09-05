@@ -3,6 +3,7 @@ import React from "react";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import Loader from "@components/Loader";
+import RepoBranchesDrawer from "@components/RepoBranchesDrawer";
 import RepoTile from "@components/RepoTile";
 import SearchIcon from "@components/SearchIcon";
 import GitHubStore from "@store/GitHubStore";
@@ -42,13 +43,17 @@ const RepoSearchPage = () => {
   }, [inputValue, disabled]);
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
   const handleSearchButton = (inputValue: string) => {
     setDisabled(true);
     setIsLoading(true);
   };
+  const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const handleDrawer = () => {
+    setIsVisible(false);
+  }
   const handleRepoTile = (): void => {
     // TODO: открытие боковой панели RepoBranchesDrawer
+    setIsVisible(true);
   };
 
   return (
@@ -70,8 +75,10 @@ const RepoSearchPage = () => {
                 onClick={handleRepoTile}
                 item={repo}
               />
+              <RepoBranchesDrawer selectedRepo={repo} visible={isVisible} onClose={handleDrawer} />
             </React.Fragment>
           ))}
+
         </div>
         }
       </div>
