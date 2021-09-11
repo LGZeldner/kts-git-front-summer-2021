@@ -7,7 +7,7 @@ import { Drawer } from 'antd';
 import "./RepoBranchesDrawer.css";
 
 export type RepoBranchesDrawerProps = {
-    selectedRepo: RepoItem | null;
+    selectedRepo: RepoItem | undefined;
     onClose: () => void;
     visible: boolean;
 };
@@ -21,7 +21,7 @@ const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
 
     React.useEffect(() => {
         const getBranches = async () => {
-            if (selectedRepo !== null) try {
+            if (selectedRepo) try {
                 await new GitHubStore()
                     .getRepoBranchesList({
                         ownerName: selectedRepo.owner.login,
@@ -35,9 +35,7 @@ const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
 
     return <Drawer title="Ветки" placement="right" onClose={onClose} visible={visible}>
         {branchesList.map((branch) => (
-            <React.Fragment key={branch.name}>
-                <p>{branch.name}</p>
-            </React.Fragment>
+            <p>{branch.name}</p>
         ))}
     </Drawer>;
 };

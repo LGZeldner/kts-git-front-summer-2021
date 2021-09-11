@@ -27,9 +27,12 @@ const RepoSearchPage = () => {
 
   const [disabled, setDisabled] = React.useState(false);
   const [reposList, setReposList] = React.useState<RepoItem[]>([]);
+  const [selectedRepo, setSelectedRepo] = React.useState<RepoItem>();
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
   React.useEffect(() => {
-    // если введено значение и нажата кнопка - делаем запрос
-    if (inputValue !== "" && disabled) {
+    // если перешли к загрузке - делаем запрос
+    if (isLoading) {
       gitHubStore
         .getOrganizationReposList({
           organizationName: inputValue,
@@ -38,11 +41,11 @@ const RepoSearchPage = () => {
         .then((result) => {
           setReposList(result.data);
           setIsLoading(false);
+          setDisabled(false);
         });
     }
-  }, [inputValue, disabled]);
+  }, [inputValue, isLoading]);
 
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const handleSearchButton = (inputValue: string) => {
     setDisabled(true);
     setIsLoading(true);
@@ -51,10 +54,6 @@ const RepoSearchPage = () => {
   const handleDrawer = () => {
     setIsVisible(false);
   }
-  const handleRepoTile = (): void => {
-    // TODO: открытие боковой панели RepoBranchesDrawer
-    setIsVisible(true);
-  };
 
   return (
     <main className="light-gray-background">
@@ -68,19 +67,21 @@ const RepoSearchPage = () => {
           </form>
         </div>
         {isLoading && <Loader name="Загружаем список..." />}
-        {(disabled && !isLoading) && <div className="repos-list">
+        {(!isLoading) && <div className="repos-list">
           {reposList.map((repo) => (
             <React.Fragment key={repo.id}>
               <RepoTile
-                onClick={handleRepoTile}
+                onClick={() => {
+                  setIsVisible(true);
+                  setSelectedRepo(repo);
+                }}
                 item={repo}
               />
-              <RepoBranchesDrawer selectedRepo={repo} visible={isVisible} onClose={handleDrawer} />
             </React.Fragment>
           ))}
-
         </div>
         }
+        <RepoBranchesDrawer selectedRepo={selectedRepo} visible={isVisible} onClose={handleDrawer} />
       </div>
     </main>
   );

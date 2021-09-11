@@ -1,8 +1,8 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import "./Button.css";
 
 export type ButtonProps = PropsWithChildren<{
-  onClick: (e: React.MouseEvent) => void;
+  onClick: () => void;
   disabled?: boolean;
 }>;
 
@@ -10,12 +10,13 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   children,
   disabled,
-}) => disabled
-    ? <button disabled={disabled} className="search-bar__button">
-      {children}
-    </button>
-    : <button onClick={onClick} disabled={disabled} className="search-bar__button">
-      {children}
-    </button>;
+}) => {
+  const handleOnClick = () => {
+    if (!disabled) { onClick() }
+  };
+  return <button disabled={disabled} className="search-bar__button" onClick={handleOnClick}>
+    {children}
+  </button>
+};
 
-export default Button;
+export default React.memo(Button);
