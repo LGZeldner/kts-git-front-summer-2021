@@ -1,5 +1,7 @@
 import React from "react";
 
+// import { ReposContext } from "@App";
+
 import Button from "@components/Button";
 import Input from "@components/Input";
 import Loader from "@components/Loader";
@@ -8,8 +10,10 @@ import RepoTile from "@components/RepoTile";
 import SearchIcon from "@components/SearchIcon";
 import GitHubStore from "@store/GitHubStore";
 import { RepoItem } from "@store/GitHubStore/types";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 
 import "./RepoSearchPage.css";
+import { ReposContext } from "../../App/App";
 
 const gitHubStore = new GitHubStore();
 
@@ -18,7 +22,10 @@ const QUERY = {
   page: '1'
 }
 
+export const useReposContext = () => React.useContext(ReposContext);
+
 const RepoSearchPage = () => {
+  const reposContext = useReposContext();
 
   const [inputValue, setInputValue] = React.useState<string>("");
   const handleInput = (value: string) => {
@@ -26,29 +33,37 @@ const RepoSearchPage = () => {
   };
 
   const [disabled, setDisabled] = React.useState(false);
-  const [reposList, setReposList] = React.useState<RepoItem[]>([]);
-  const [selectedRepo, setSelectedRepo] = React.useState<RepoItem>();
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  React.useEffect(() => {
-    // если перешли к загрузке - делаем запрос
-    if (isLoading) {
+  const [selectedRepo, setSelectedRepo] = React.useState<RepoItem>();
+
+  const reposLoad = () => {
+    // eslint-disable-next-line
+    console.log("load");
+
+    if (reposContext.isLoading) {
       gitHubStore
         .getOrganizationReposList({
           organizationName: inputValue,
           data: QUERY
         })
         .then((result) => {
-          setReposList(result.data);
-          setIsLoading(false);
+          reposContext.setList(result.data);
+          reposContext.setIsLoading(false);
           setDisabled(false);
         });
     }
-  }, [inputValue, isLoading]);
+  }
+  reposContext.load = reposLoad;
+
+  React.useEffect(() => {
+    // eslint-disable-next-line
+    console.log("useEffect");
+    reposContext.load();
+  }, [reposContext]);
 
   const handleSearchButton = (inputValue: string) => {
     setDisabled(true);
-    setIsLoading(true);
+    reposContext.setIsLoading(true);
   };
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const handleDrawer = () => {
@@ -66,17 +81,19 @@ const RepoSearchPage = () => {
             </Button>
           </form>
         </div>
-        {isLoading && <Loader name="Загружаем список..." />}
-        {(!isLoading) && <div className="repos-list">
-          {reposList.map((repo) => (
+        {reposContext.isLoading && <Loader name="Загружаем список..." />}
+        {(!reposContext.isLoading) && <div className="repos-list">
+          {reposContext.list.map((repo) => (
             <React.Fragment key={repo.id}>
-              <RepoTile
-                onClick={() => {
-                  setIsVisible(true);
-                  setSelectedRepo(repo);
-                }}
-                item={repo}
-              />
+              <Link to={`/repos/${(repo) ? repo.id : 0}`}>
+                <RepoTile
+                  onClick={() => {
+                    setIsVisible(true);
+                    setSelectedRepo(repo);
+                  }}
+                  item={repo}
+                />
+              </Link>
             </React.Fragment>
           ))}
         </div>
@@ -84,6 +101,7 @@ const RepoSearchPage = () => {
         <RepoBranchesDrawer selectedRepo={selectedRepo} visible={isVisible} onClose={handleDrawer} />
       </div>
     </main>
+
   );
 };
 
