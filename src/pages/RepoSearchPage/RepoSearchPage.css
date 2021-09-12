@@ -1,0 +1,31 @@
+.light-gray-background {
+  background-color: var(--backgroundMain);
+  padding: 8px 0;   
+}
+
+.repos-list-component {
+  width: 397px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid; 
+  grid-auto-columns: 1fr; 
+  grid-template-rows: 50px 1fr; 
+  gap: 20px 0px; 
+  justify-items: center;
+}
+
+.search-bar {    
+  width: 100%;    
+}
+.search-bar__form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;        
+}
+
+.repos-list {
+  width: 100%;
+  display: grid;
+  grid-auto-columns: 1fr;
+  gap: 16px 0px; 
+}

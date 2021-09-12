@@ -14,6 +14,7 @@ gitHubStore.getOrganizationReposList({
   organizationName: EXAMPLE_ORGANIZATION,
   data: QUERY
 }).then(result => {
+  /* eslint-disable no-console */
   console.log(result); // в консоли появится список репозиториев в ktsstudio
 })
 
