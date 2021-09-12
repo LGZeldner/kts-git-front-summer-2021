@@ -4,13 +4,10 @@ import Loader from '@components/Loader';
 import RepoBranchesDrawer from "@components/RepoBranchesDrawer";
 import RepoTile from "@components/RepoTile";
 import GitHubStore from '@store/GitHubStore';
-import { BranchItem, RepoItem } from '@store/GitHubStore/types';
-import { Drawer } from 'antd';
+import { RepoItem } from '@store/GitHubStore/types';
 import { useHistory, useParams } from "react-router-dom";
 
-
-import { ReposContext, useReposContext } from "../../App/App";
-
+import { useReposContext } from "../../App/App";
 
 const RepoItemWithBranches = () => {
     const reposContext = useReposContext();
@@ -26,19 +23,6 @@ const RepoItemWithBranches = () => {
         setIsVisible(false);
         history.goBack();
     }
-    const getRepo = () => {
-        if (linkParams.id) try {
-            gitHubStore
-                .getRepo({
-                    id: linkParams.id,
-                })
-                .then((result) => {
-                    if (result.success) setSelectedRepo(result.data);
-                    else setNotFound(true);
-                });
-        } catch (err) {
-        }
-    };
 
     React.useEffect(() => {
 
@@ -49,10 +33,20 @@ const RepoItemWithBranches = () => {
             setSelectedRepo(reposListFiltered);
         }
         else if (linkParams.id) {
-            getRepo();
+            if (linkParams.id) try {
+                gitHubStore
+                    .getRepo({
+                        id: linkParams.id,
+                    })
+                    .then((result) => {
+                        if (result.success) setSelectedRepo(result.data);
+                        else setNotFound(true);
+                    });
+            } catch (err) {
+            }
         }
 
-    }, [reposContext, linkParams]);
+    }, [reposContext, linkParams, gitHubStore]);
 
     return (
         <RepoBranchesDrawer selectedRepo={selectedRepo} visible={isVisible} onClose={handleDrawer}>

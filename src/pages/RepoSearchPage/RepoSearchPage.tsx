@@ -1,20 +1,16 @@
 import React from "react";
 
-// import { ReposContext } from "@App";
-
 import Button from "@components/Button";
 import Input from "@components/Input";
 import Loader from "@components/Loader";
-import RepoBranchesDrawer from "@components/RepoBranchesDrawer";
 import RepoTile from "@components/RepoTile";
 import SearchIcon from "@components/SearchIcon";
 import RepoItemWithBranches from "@pages/RepoItemWithBranches";
 import GitHubStore from "@store/GitHubStore";
-import { RepoItem } from "@store/GitHubStore/types";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
-import "./RepoSearchPage.css";
-import { ReposContext, useReposContext } from "../../App/App";
+import "./RepoSearchPage.scss";
+import { useReposContext } from "../../App/App";
 
 const gitHubStore = new GitHubStore();
 
@@ -22,8 +18,6 @@ const QUERY = {
   per_page: '5',
   page: '1'
 }
-
-
 
 const RepoSearchPage = () => {
   const reposContext = useReposContext();
@@ -34,8 +28,6 @@ const RepoSearchPage = () => {
   };
 
   const [disabled, setDisabled] = React.useState(false);
-
-  const [selectedRepo, setSelectedRepo] = React.useState<RepoItem>();
 
   const reposLoad = () => {
     if (reposContext.isLoading) {
@@ -61,10 +53,7 @@ const RepoSearchPage = () => {
     setDisabled(true);
     reposContext.setIsLoading(true);
   };
-  const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  const handleDrawer = () => {
-    setIsVisible(false);
-  }
+
 
   return (
     <main className="light-gray-background">
@@ -83,10 +72,7 @@ const RepoSearchPage = () => {
             <React.Fragment key={repo.id}>
               <Link to={`/repos/${repo.id}`}>
                 <RepoTile
-                  onClick={() => {
-                    setIsVisible(true);
-                    setSelectedRepo(repo);
-                  }}
+                  onClick={() => { }}
                   item={repo}
                 />
               </Link>

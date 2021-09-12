@@ -1,4 +1,4 @@
-import "./StarIcon.css";
+import "./StarIcon.scss";
 
 export type StarIconProps = {
   currentColor?: string;

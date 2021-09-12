@@ -1,13 +1,11 @@
 import React from 'react';
 
 import PageTitle from '@components/PageTitle';
-import RepoBranchesDrawer from '@components/RepoBranchesDrawer';
-import RepoItemWithBranches from '@pages/RepoItemWithBranches';
 import RepoSearchPage from '@pages/RepoSearchPage';
 import { RepoItem } from '@store/GitHubStore/types';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import './App.css';
+import './App.scss';
 
 type ReposContextProps = {
   list: RepoItem[];

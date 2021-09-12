@@ -3,7 +3,7 @@ import React, { PropsWithChildren } from 'react';
 import GitHubStore from '@store/GitHubStore';
 import { BranchItem, RepoItem } from '@store/GitHubStore/types';
 import { Drawer } from 'antd';
-import "./RepoBranchesDrawer.css";
+import "./RepoBranchesDrawer.scss";
 
 
 export type RepoBranchesDrawerProps = PropsWithChildren<{

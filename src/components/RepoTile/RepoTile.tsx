@@ -4,7 +4,7 @@ import Avatar from "@components/Avatar";
 import StarIcon from "@components/StarIcon";
 import { RepoItem } from "@store/GitHubStore/types";
 import Moment from "moment";
-import "./RepoTile.css";
+import "./RepoTile.scss";
 
 export type RepoTileProps = {
     onClick?: (e: React.MouseEvent) => void;

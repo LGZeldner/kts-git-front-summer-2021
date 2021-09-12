@@ -1,6 +1,6 @@
 import React from "react";
 
-import './PageTitle.css'
+import './PageTitle.scss'
 
 export type PageTitleProps = {
     title: string;

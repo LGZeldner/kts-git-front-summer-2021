@@ -1,0 +1,18 @@
+/* TODO: перейти на AntDesign 
+@import '~antd/dist/antd.scss'; */
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  
+  font-size: $fontSizeMain;
+  font-style: normal;
+
+  
+  color: $colorDefault;    
+}
+
+.light-gray-background {
+  background-color: $backgroundMain;
+  padding: 8px 0;   
+}

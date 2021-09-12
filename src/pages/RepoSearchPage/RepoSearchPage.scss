@@ -1,5 +1,7 @@
+@import "@styles/variables";
+
 .light-gray-background {
-  background-color: var(--backgroundMain);
+  background-color: $backgroundMain;
   padding: 8px 0;   
 }
 
@@ -15,12 +17,12 @@
 }
 
 .search-bar {    
-  width: 100%;    
-}
-.search-bar__form {
   width: 100%;
-  display: flex;
-  justify-content: space-between;        
+  &__form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;        
+  }    
 }
 
 .repos-list {

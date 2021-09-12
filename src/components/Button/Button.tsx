@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import "./Button.css";
+import "./Button.scss";
 
 export type ButtonProps = PropsWithChildren<{
   onClick: () => void;
