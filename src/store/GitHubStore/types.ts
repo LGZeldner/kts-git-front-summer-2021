@@ -24,6 +24,9 @@ export type GetOrganizationReposListParams = {
         page?: string; // номер страницы
     }
 }
+export type GetRepoParams = {
+    id: string; // Id репозитория    
+}
 
 export type GitHubRepoOwner = {
     id: number;
@@ -51,6 +54,7 @@ export interface IGitHubStore {
 
     getOrganizationReposList(params: GetOrganizationReposListParams): Promise<ApiResponse<RepoItem[], any>>;
     getRepoBranchesList(params: GetRepoBranchesListParams): Promise<ApiResponse<BranchItem[], any>>;
+    getRepo(params: GetRepoParams): Promise<ApiResponse<RepoItem, any>>;
 
     // Необязательный пункт, т.к. требует авторизации. Понадобится в будущем
     // TODO метод POST

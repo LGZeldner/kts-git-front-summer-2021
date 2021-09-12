@@ -8,12 +8,13 @@ import Loader from "@components/Loader";
 import RepoBranchesDrawer from "@components/RepoBranchesDrawer";
 import RepoTile from "@components/RepoTile";
 import SearchIcon from "@components/SearchIcon";
+import RepoItemWithBranches from "@pages/RepoItemWithBranches";
 import GitHubStore from "@store/GitHubStore";
 import { RepoItem } from "@store/GitHubStore/types";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 
 import "./RepoSearchPage.css";
-import { ReposContext } from "../../App/App";
+import { ReposContext, useReposContext } from "../../App/App";
 
 const gitHubStore = new GitHubStore();
 
@@ -22,7 +23,7 @@ const QUERY = {
   page: '1'
 }
 
-export const useReposContext = () => React.useContext(ReposContext);
+
 
 const RepoSearchPage = () => {
   const reposContext = useReposContext();
@@ -37,9 +38,6 @@ const RepoSearchPage = () => {
   const [selectedRepo, setSelectedRepo] = React.useState<RepoItem>();
 
   const reposLoad = () => {
-    // eslint-disable-next-line
-    console.log("load");
-
     if (reposContext.isLoading) {
       gitHubStore
         .getOrganizationReposList({
@@ -56,8 +54,6 @@ const RepoSearchPage = () => {
   reposContext.load = reposLoad;
 
   React.useEffect(() => {
-    // eslint-disable-next-line
-    console.log("useEffect");
     reposContext.load();
   }, [reposContext]);
 
@@ -85,7 +81,7 @@ const RepoSearchPage = () => {
         {(!reposContext.isLoading) && <div className="repos-list">
           {reposContext.list.map((repo) => (
             <React.Fragment key={repo.id}>
-              <Link to={`/repos/${(repo) ? repo.id : 0}`}>
+              <Link to={`/repos/${repo.id}`}>
                 <RepoTile
                   onClick={() => {
                     setIsVisible(true);
@@ -98,7 +94,8 @@ const RepoSearchPage = () => {
           ))}
         </div>
         }
-        <RepoBranchesDrawer selectedRepo={selectedRepo} visible={isVisible} onClose={handleDrawer} />
+        <Route path="/repos/:id" component={RepoItemWithBranches} />
+
       </div>
     </main>
 

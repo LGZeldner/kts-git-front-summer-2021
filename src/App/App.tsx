@@ -2,6 +2,7 @@ import React from 'react';
 
 import PageTitle from '@components/PageTitle';
 import RepoBranchesDrawer from '@components/RepoBranchesDrawer';
+import RepoItemWithBranches from '@pages/RepoItemWithBranches';
 import RepoSearchPage from '@pages/RepoSearchPage';
 import { RepoItem } from '@store/GitHubStore/types';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
@@ -23,6 +24,8 @@ export const ReposContext = React.createContext<ReposContextProps>({
   load: () => { }
 });
 
+export const useReposContext = () => React.useContext(ReposContext);
+
 function App() {
   const [list, setList] = React.useState<RepoItem[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -36,7 +39,6 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route path="/repos" component={RepoSearchPage} />
-            <Route path="/repos/:id" component={RepoBranchesDrawer} />
             <Redirect to="/repos" />
           </Switch>
         </BrowserRouter>
