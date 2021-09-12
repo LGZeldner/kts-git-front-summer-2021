@@ -1,11 +1,11 @@
 @import "@styles/variables";
 
-.light-gray-background {
+.lightGrayBackground {
   background-color: $backgroundMain;
   padding: 8px 0;   
 }
 
-.repos-list-component {
+.reposListComponent {
   width: 397px;
   margin: 0 auto;
   padding: 0 20px;
@@ -16,7 +16,7 @@
   justify-items: center;
 }
 
-.search-bar {    
+.searchBar {    
   width: 100%;
   &__form {
     width: 100%;
@@ -25,7 +25,7 @@
   }    
 }
 
-.repos-list {
+.reposList {
   width: 100%;
   display: grid;
   grid-auto-columns: 1fr;

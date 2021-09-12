@@ -9,8 +9,8 @@ import RepoItemWithBranches from "@pages/RepoItemWithBranches";
 import GitHubStore from "@store/GitHubStore";
 import { Link, Route } from "react-router-dom";
 
-import "./RepoSearchPage.scss";
 import { useReposContext } from "../../App/App";
+import styles from "./RepoSearchPage.module.scss";
 
 const gitHubStore = new GitHubStore();
 
@@ -56,10 +56,10 @@ const RepoSearchPage = () => {
 
 
   return (
-    <main className="light-gray-background">
-      <div className="repos-list-component">
-        <div className="search-bar">
-          <form action="" method="get" className="search-bar__form">
+    <main className={styles.lightGrayBackground}>
+      <div className={styles.reposListComponent}>
+        <div className={styles.searchBar}>
+          <form action="" method="get" className={styles.searchBar__form}>
             <Input value={inputValue} placeholder="Введите название организации" onChange={handleInput}></Input>
             <Button onClick={() => handleSearchButton(inputValue)} disabled={disabled}>
               <SearchIcon />
@@ -67,7 +67,7 @@ const RepoSearchPage = () => {
           </form>
         </div>
         {reposContext.isLoading && <Loader name="Загружаем список..." />}
-        {(!reposContext.isLoading) && <div className="repos-list">
+        {(!reposContext.isLoading) && <div className={styles.reposList}>
           {reposContext.list.map((repo) => (
             <React.Fragment key={repo.id}>
               <Link to={`/repos/${repo.id}`}>

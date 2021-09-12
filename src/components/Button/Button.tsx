@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from "react";
-import "./Button.scss";
+
+import styles from './Button.module.scss';
 
 export type ButtonProps = PropsWithChildren<{
   onClick: () => void;
@@ -14,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
   const handleOnClick = () => {
     if (!disabled) { onClick() }
   };
-  return <button disabled={disabled} className="search-bar__button" onClick={handleOnClick}>
+  return <button disabled={disabled} className={styles.searchBar__button} onClick={handleOnClick}>
     {children}
   </button>
 };

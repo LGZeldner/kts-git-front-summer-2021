@@ -5,7 +5,7 @@ import RepoSearchPage from '@pages/RepoSearchPage';
 import { RepoItem } from '@store/GitHubStore/types';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import './App.scss';
+import styles from './App.module.scss';
 
 type ReposContextProps = {
   list: RepoItem[];
@@ -29,8 +29,8 @@ function App() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const load = () => { };
   return (
-    <div className="App">
-      <header className="light-gray-background">
+    <div className={styles.App}>
+      <header className={styles.lightGrayBackground}>
         <PageTitle title="Cписок репозиториев"></PageTitle>
       </header>
       <ReposContext.Provider value={{ list, setList, isLoading, setIsLoading, load }}>

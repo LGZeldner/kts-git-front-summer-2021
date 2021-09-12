@@ -1,6 +1,6 @@
 @import "@styles/variables";
 
-.git-repo-tile__avatar-container {
+.gitRepoTile__avatarContainer {
     background-color: $accent;
     border-radius: $avatarSize/2;    
     font-size: $avatarSize/2;
@@ -12,7 +12,7 @@
     margin-right: 12px;
 }
 
-.git-repo-tile__avatar-img {
+.gitRepoTile__avatarImg {
     width: $avatarSize;
     height: $avatarSize;    
 }

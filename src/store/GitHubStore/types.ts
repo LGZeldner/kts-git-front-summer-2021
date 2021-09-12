@@ -9,7 +9,7 @@ export type GetRepoBranchesListParams = {
     ownerName: string; // Имя владельца
     repoName: string; // Название репозитория
     data?: {
-        protected?: boolean; // true - protected branches        
+        protected?: boolean; // true-protected branches        
         per_page?: string; // Результатов на странице
         page?: string; // номер страницы
     }
