@@ -18,7 +18,7 @@ const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
     children
 }) => {
     const [branchesList, setBranchesList] = React.useState<BranchItem[]>([]);
-    const gitHubStore = new GitHubStore();
+    const [gitHubStore] = React.useState<GitHubStore>(new GitHubStore());
 
     React.useEffect(() => {
         if (selectedRepo) try {
@@ -31,7 +31,7 @@ const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
         }
             catch (err) { }
 
-    }, [selectedRepo]);
+    }, [selectedRepo, gitHubStore]);
 
     return <Drawer title="Репозиторий и ветки" placement="top" onClose={onClose} visible={visible}>
         {children}

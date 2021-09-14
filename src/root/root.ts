@@ -6,8 +6,8 @@ const gitHubStore = new GitHubStore();
 
 const EXAMPLE_ORGANIZATION = 'ktsstudio';
 const QUERY = {
-  per_page: '5',
-  page: '1'
+  per_page: 5,
+  page: 1
 }
 
 gitHubStore.getOrganizationReposList({

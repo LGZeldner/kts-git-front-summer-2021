@@ -10,8 +10,8 @@ export type GetRepoBranchesListParams = {
     repoName: string; // Название репозитория
     data?: {
         protected?: boolean; // true-protected branches        
-        per_page?: string; // Результатов на странице
-        page?: string; // номер страницы
+        per_page?: number; // Результатов на странице
+        page?: number; // номер страницы
     }
 }
 export type GetOrganizationReposListParams = {
@@ -20,8 +20,8 @@ export type GetOrganizationReposListParams = {
         type?: string; // Типы репозиториев
         sort?: string; // Сортировка по
         direction?: string; // Направление сортировки
-        per_page?: string; // Результатов на странице
-        page?: string; // номер страницы
+        per_page?: number; // Результатов на странице
+        page?: number; // номер страницы
     }
 }
 export type GetRepoParams = {

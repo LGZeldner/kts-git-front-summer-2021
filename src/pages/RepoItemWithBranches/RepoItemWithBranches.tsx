@@ -13,7 +13,7 @@ const RepoItemWithBranches = () => {
     const reposContext = useReposContext();
     const linkParams = useParams<{ id?: string }>();
     const history = useHistory();
-    const gitHubStore = new GitHubStore();
+    const [gitHubStore] = React.useState<GitHubStore>(new GitHubStore());
 
     const [selectedRepo, setSelectedRepo] = React.useState<RepoItem>();
     const [isVisible, setIsVisible] = React.useState<boolean>(true);
