@@ -1,9 +1,11 @@
-.light-gray-background {
-  background-color: var(--backgroundMain);
+@import "@styles/variables";
+
+.lightGrayBackground {
+  background-color: $backgroundMain;
   padding: 8px 0;   
 }
 
-.repos-list-component {
+.reposListComponent {
   width: 397px;
   margin: 0 auto;
   padding: 0 20px;
@@ -14,16 +16,16 @@
   justify-items: center;
 }
 
-.search-bar {    
-  width: 100%;    
-}
-.search-bar__form {
+.searchBar {    
   width: 100%;
-  display: flex;
-  justify-content: space-between;        
+  &__form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;        
+  }    
 }
 
-.repos-list {
+.reposList {
   width: 100%;
   display: grid;
   grid-auto-columns: 1fr;

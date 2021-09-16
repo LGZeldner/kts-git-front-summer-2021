@@ -1,6 +1,6 @@
 import React from "react";
 
-import './Avatar.css'
+import styles from './Avatar.module.scss'
 
 export type AvatarProps = {
     src?: string;
@@ -13,9 +13,9 @@ const Avatar: React.FC<AvatarProps> = ({
     alt = "owner avatar",
     letter
 }) => {
-    if (!src) return <div className="git-repo-tile__avatar-container">{letter}</div>;
-    else return <div className="git-repo-tile__avatar-container">
-        <img src={src} alt={alt} className="git-repo-tile__avatar-img"></img>
+    if (!src) return <div className={styles.gitRepoTile__avatarContainer}>{letter}</div>;
+    else return <div className={styles.gitRepoTile__avatarContainer}>
+        <img src={src} alt={alt} className={styles.gitRepoTile__avatarImg}></img>
     </div>
 }
 

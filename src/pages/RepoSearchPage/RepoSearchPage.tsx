@@ -3,87 +3,96 @@ import React from "react";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import Loader from "@components/Loader";
-import RepoBranchesDrawer from "@components/RepoBranchesDrawer";
 import RepoTile from "@components/RepoTile";
 import SearchIcon from "@components/SearchIcon";
+import RepoItemWithBranches from "@pages/RepoItemWithBranches";
 import GitHubStore from "@store/GitHubStore";
-import { RepoItem } from "@store/GitHubStore/types";
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { Link, Route } from "react-router-dom";
 
-import "./RepoSearchPage.css";
+import { useReposContext } from "../../App/App";
+import styles from "./RepoSearchPage.module.scss";
 
-const gitHubStore = new GitHubStore();
-
-const QUERY = {
-  per_page: '5',
-  page: '1'
-}
 
 const RepoSearchPage = () => {
-
+  const reposContext = useReposContext();
+  const [gitHubStore] = React.useState<GitHubStore>(new GitHubStore());
+  const [query, setQuery] = React.useState({
+    per_page: 5,
+    page: 1
+  });
+  const [hasMoreRepos, setHasMoreRepos] = React.useState<boolean>(true);
   const [inputValue, setInputValue] = React.useState<string>("");
   const handleInput = (value: string) => {
     setInputValue(value);
   };
 
-  const [disabled, setDisabled] = React.useState(false);
-  const [reposList, setReposList] = React.useState<RepoItem[]>([]);
-  const [selectedRepo, setSelectedRepo] = React.useState<RepoItem>();
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const reposLoad = () => {
+    gitHubStore
+      .getOrganizationReposList({
+        organizationName: inputValue,
+        data: query
+      })
+      .then((result) => {
+        reposContext.setIsLoading(false);
+        if (result.data.length) reposContext.setList(reposContext.list.concat(result.data));
+        else setHasMoreRepos(false);
+      });
+
+  }
+  reposContext.load = reposLoad;
 
   React.useEffect(() => {
-    // если перешли к загрузке - делаем запрос
-    if (isLoading) {
-      gitHubStore
-        .getOrganizationReposList({
-          organizationName: inputValue,
-          data: QUERY
-        })
-        .then((result) => {
-          setReposList(result.data);
-          setIsLoading(false);
-          setDisabled(false);
-        });
-    }
-  }, [inputValue, isLoading]);
+    if (reposContext.isLoading) reposContext.load();
+
+  }, [reposContext]);
 
   const handleSearchButton = (inputValue: string) => {
-    setDisabled(true);
-    setIsLoading(true);
+    reposContext.setIsLoading(true);
   };
-  const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  const handleDrawer = () => {
-    setIsVisible(false);
-  }
+
+  const fetchMoreData = () => {
+    setQuery({ per_page: query.per_page, page: query.page + 1 });
+    reposContext.setIsLoading(true);
+  };
 
   return (
-    <main className="light-gray-background">
-      <div className="repos-list-component">
-        <div className="search-bar">
-          <form action="" method="get" className="search-bar__form">
+    <main className={styles.lightGrayBackground}>
+      <div className={styles.reposListComponent}>
+        <div className={styles.searchBar}>
+          <form action="" method="get" className={styles.searchBar__form}>
             <Input value={inputValue} placeholder="Введите название организации" onChange={handleInput}></Input>
-            <Button onClick={() => handleSearchButton(inputValue)} disabled={disabled}>
+            <Button onClick={() => handleSearchButton(inputValue)} disabled={reposContext.isLoading}>
               <SearchIcon />
             </Button>
           </form>
         </div>
-        {isLoading && <Loader name="Загружаем список..." />}
-        {(!isLoading) && <div className="repos-list">
-          {reposList.map((repo) => (
-            <React.Fragment key={repo.id}>
-              <RepoTile
-                onClick={() => {
-                  setIsVisible(true);
-                  setSelectedRepo(repo);
-                }}
-                item={repo}
-              />
-            </React.Fragment>
-          ))}
-        </div>
+        {(reposContext.list.length === 0 && reposContext.isLoading) && <Loader name="Загружаем список..." />}
+        {(reposContext.list.length !== 0) &&
+          <InfiniteScroll
+            dataLength={reposContext.list.length}
+            next={fetchMoreData}
+            hasMore={hasMoreRepos}
+            loader={<Loader name="Загружаем еще репозитории..." />}
+            endMessage={<Loader name="Загружены все репозитории" />}
+          >
+            <div className={styles.reposList}>
+              {reposContext.list.map((repo) => (
+                <React.Fragment key={repo.id}>
+                  <Link to={`/repos/${repo.id}`}>
+                    <RepoTile item={repo} />
+                  </Link>
+                </React.Fragment>
+              ))}
+            </div>
+          </InfiniteScroll>
+
         }
-        <RepoBranchesDrawer selectedRepo={selectedRepo} visible={isVisible} onClose={handleDrawer} />
+        <Route path="/repos/:id" component={RepoItemWithBranches} />
+
       </div>
     </main>
+
   );
 };
 

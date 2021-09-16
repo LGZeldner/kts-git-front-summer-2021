@@ -1,0 +1,18 @@
+@import "@styles/variables";
+
+.gitRepoTile__avatarContainer {
+    background-color: $accent;
+    border-radius: $avatarSize/2;    
+    font-size: $avatarSize/2;
+    font-weight: 700;
+    line-height: 2;
+    letter-spacing: 0em;
+    text-align: center;
+    color: $background;
+    margin-right: 12px;
+}
+
+.gitRepoTile__avatarImg {
+    width: $avatarSize;
+    height: $avatarSize;    
+}

@@ -1,4 +1,4 @@
-import "./StarIcon.css";
+import styles from './StarIcon.module.scss';
 
 export type StarIconProps = {
   currentColor?: string;
@@ -6,7 +6,7 @@ export type StarIconProps = {
 
 const StarIcon: React.FC<StarIconProps> = ({ currentColor = "#FF9432" }) => (
   <svg
-    className="git-repo-tile__star"
+    className={styles.gitRepoTile__star}
     xmlns="http://www.w3.org/2000/svg"
     width="14"
     height="13"

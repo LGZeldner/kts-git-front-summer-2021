@@ -1,5 +1,6 @@
 import React from "react";
-import "./Input.css";
+
+import styles from './Input.module.scss';
 
 export type InputProps = {
   value: string;
@@ -8,6 +9,6 @@ export type InputProps = {
 };
 
 const Input: React.FC<InputProps> = ({ onChange, placeholder, value }) =>
-  <input type="text" placeholder={placeholder} onChange={(event) => onChange(event.target.value)} value={value} className="search-bar__input" />;
+  <input type="text" placeholder={placeholder} onChange={(event) => onChange(event.target.value)} value={value} className={styles.searchBar__input} />;
 
 export default React.memo(Input);

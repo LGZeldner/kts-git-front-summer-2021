@@ -1,8 +1,10 @@
+@import "@styles/variables";
+
 .loader {
-    height: 80px;
+    height: $avatarSize;
     font-style: normal;
     font-weight: 700;
     vertical-align: middle;
     text-align: center;
-    border-bottom: var(--borderRadus) solid var(--colorHint);
+    border-bottom: $borderRadus solid $colorHint;
 }

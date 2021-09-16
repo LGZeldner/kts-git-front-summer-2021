@@ -1,0 +1,21 @@
+@import "@styles/variables";
+
+.searchBar__input {
+    flex-grow: 1;
+    background-color: $background; 
+    border: $borderWidth solid $colorBorder;    
+    border-radius: $borderRadus;
+    font-size: 14px;
+    padding: 14px;
+    margin-right: 12px;
+    height: inherit;
+    outline: none;   
+    &:focus, &:active {
+        border-color: $accent;
+    }
+    &:disabled {
+        border-color: $colorHint;
+        color: $colorHint;
+    } 
+}
+

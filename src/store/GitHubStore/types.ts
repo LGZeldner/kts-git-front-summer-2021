@@ -9,9 +9,9 @@ export type GetRepoBranchesListParams = {
     ownerName: string; // Имя владельца
     repoName: string; // Название репозитория
     data?: {
-        protected?: boolean; // true - protected branches        
-        per_page?: string; // Результатов на странице
-        page?: string; // номер страницы
+        protected?: boolean; // true-protected branches        
+        per_page?: number; // Результатов на странице
+        page?: number; // номер страницы
     }
 }
 export type GetOrganizationReposListParams = {
@@ -20,9 +20,12 @@ export type GetOrganizationReposListParams = {
         type?: string; // Типы репозиториев
         sort?: string; // Сортировка по
         direction?: string; // Направление сортировки
-        per_page?: string; // Результатов на странице
-        page?: string; // номер страницы
+        per_page?: number; // Результатов на странице
+        page?: number; // номер страницы
     }
+}
+export type GetRepoParams = {
+    id: string; // Id репозитория    
 }
 
 export type GitHubRepoOwner = {
@@ -51,6 +54,7 @@ export interface IGitHubStore {
 
     getOrganizationReposList(params: GetOrganizationReposListParams): Promise<ApiResponse<RepoItem[], any>>;
     getRepoBranchesList(params: GetRepoBranchesListParams): Promise<ApiResponse<BranchItem[], any>>;
+    getRepo(params: GetRepoParams): Promise<ApiResponse<RepoItem, any>>;
 
     // Необязательный пункт, т.к. требует авторизации. Понадобится в будущем
     // TODO метод POST
