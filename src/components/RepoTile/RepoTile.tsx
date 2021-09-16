@@ -8,12 +8,11 @@ import Moment from "moment";
 import styles from './RepoTile.module.scss';
 
 export type RepoTileProps = {
-    onClick?: (e: React.MouseEvent) => void;
     item: RepoItem;
 };
 
-const RepoTile: React.FC<RepoTileProps> = ({ onClick, item: repo }) => (
-    <div className={styles.gitRepoTile} onClick={onClick}>
+const RepoTile: React.FC<RepoTileProps> = ({ item: repo }) => (
+    <div className={styles.gitRepoTile} >
         <div className={styles.gitRepoTile__container}>
             <Avatar src={repo.owner.avatar_url} alt="owner avatar" letter={repo.owner.login[0].toUpperCase()} />
             <div className={styles.gitRepoTile__content}>

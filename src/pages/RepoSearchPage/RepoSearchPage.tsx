@@ -74,18 +74,13 @@ const RepoSearchPage = () => {
             next={fetchMoreData}
             hasMore={hasMoreRepos}
             loader={<Loader name="Загружаем еще репозитории..." />}
-            endMessage={
-              <Loader name="Загружены все репозитории" />
-            }
+            endMessage={<Loader name="Загружены все репозитории" />}
           >
             <div className={styles.reposList}>
               {reposContext.list.map((repo) => (
                 <React.Fragment key={repo.id}>
                   <Link to={`/repos/${repo.id}`}>
-                    <RepoTile
-                      onClick={() => { }}
-                      item={repo}
-                    />
+                    <RepoTile item={repo} />
                   </Link>
                 </React.Fragment>
               ))}

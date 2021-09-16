@@ -21,7 +21,7 @@ const RepoItemWithBranches = () => {
 
     const handleDrawer = () => {
         setIsVisible(false);
-        history.goBack();
+        history.push('/repos');
     }
 
     React.useEffect(() => {
@@ -33,7 +33,7 @@ const RepoItemWithBranches = () => {
             setSelectedRepo(reposListFiltered);
         }
         else if (linkParams.id) {
-            if (linkParams.id) try {
+            try {
                 gitHubStore
                     .getRepo({
                         id: linkParams.id,
